@@ -9,12 +9,14 @@ import androidx.core.view.GestureDetectorCompat
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener{
+class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener,GestureDetector.OnDoubleTapListener
+{
 
     lateinit var gDetector: GestureDetector
 
     var PictureNo:Int = 0  //目前顯示第幾張圖
-    var TotalPictures:Int = 0 //總共幾張圖片(假設僅顯示pu0-pu3)
+    var TotalPictures:Int = 6//總共幾張圖片(假設僅顯示pu0-pu3)
+    var Flag: Boolean= true
 
 
     fun ShowPicture(){
@@ -81,8 +83,12 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener{
         // TODO("Not yet implemented")
 
         return true
+        Flag = true
 
     }
+
+
+
 
     override fun onFling(
         e1: MotionEvent,
@@ -91,7 +97,7 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener{
         velocityY: Float
     ): Boolean {
         //TODO("Not yet implemented")
-        if (e1.getX() < e2.getX()){  //向右快滑
+        if (e1.getY() < e2.getY()){  //向右快滑
             PictureNo++
             if (PictureNo == TotalPictures) {PictureNo = 0}
         }
@@ -118,11 +124,30 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener{
 
     override fun onLongPress(e: MotionEvent?) {
         //TODO("Not yet implemented")
-        PictureNo = TotalPictures - 1
+        PictureNo = 6
         ShowPicture()
 
 
 
+    }
+
+    override fun onDoubleTap(e: MotionEvent?): Boolean {
+        //TODO("Not yet implemented")
+        PictureNo = 6
+        ShowPicture()
+        return true
+
+
+    }
+
+    override fun onDoubleTapEvent(e: MotionEvent?): Boolean {
+        //TODO("Not yet implemented")
+        return true
+    }
+
+    override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+        //TODO("Not yet implemented")
+        return true
     }
 }
 
